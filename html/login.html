@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Signup</title>
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../jQuery/jquery.toast.min.css">
+</head>
+
+<body>
+    <div id="signupSection" class="form-container">
+        <h2>Sign up to Bookstore</h2>
+        <form id="signupForm">
+            <label for="fullname">Full Name:</label>
+            <input type="text" id="fullname" name="fullname">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword">
+            <button id="signupBtn" type="submit">Sign up</button>
+        </form>
+        <p>Already have an account? <a href="#" id="goToLogin">Login</a></p>
+    </div>
+
+    <div id="loginSection" class="form-container" style="display: none;">
+        <h2>Login to Bookstore</h2>
+        <form id="loginForm">
+            <label for="loginUsername">Username:</label>
+            <input type="text" id="loginUsername" name="username">
+            <label for="loginPassword">Password:</label>
+            <input type="password" id="loginPassword" name="password">
+            <button id="loginBtn" type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="#" id="goToSignup">Signup</a></p>
+    </div>
+    <script src="../jQuery/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js"></script>
+    <script src="../jQuery/jquery.toast.min.js"></script>
+    <script src="../js/login.js"></script>
+</body>
+
+</html>
