@@ -86,9 +86,11 @@ $(document).ready(function () {
 
     // Fetch books from API
     let promise = $.ajax({
-        url: "https://api.itbook.store/1.0/new",
+        url: "https://mocki.io/v1/6cac9289-8c20-4567-8107-ba66e2c81dcb",
         method: "GET",
     });
+
+    // https://api.itbook.store/1.0/new
 
     promise
         .done(function (data) {

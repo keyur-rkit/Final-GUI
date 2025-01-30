@@ -13,45 +13,61 @@ $(document).ready(function () {
 
     $("#signupForm").validate({
         rules: {
-            fullname: "required",
-            username: "required",
+            fullname: {
+                required: true,
+                regex: /^[A-Za-z]+$/
+            },
+            username: {
+                required: true,
+                noWhitespace: true
+            },
             email: {
                 required: true,
                 email: true
             },
             password: {
                 required: true,
-                minlength: 8
+                minlength: 8,
+                noWhitespace: true
             },
             confirmPassword: {
                 required: true,
                 minlength: 8,
-                equalTo: "#password"
+                equalTo: "#password",
+                noWhitespace: true
             }
         },
         messages: {
-            fullname: "Please enter full Name",
-            username: "Please enter username",
+            fullname: {
+                required: "Please enter full Name",
+                regex: "Only letters are allowed"
+            },
+            username: {
+                required: "Please enter username",
+                noWhitespace: "Username cannot contain spaces"
+            },
             email: {
                 required: "Please enter email",
-                email: "Please enter valid email"
+                email: "Please enter a valid email"
             },
             password: {
-                required: "Please enter password ",
-                minlength: "Password must be 8 char long"
+                required: "Please enter password",
+                minlength: "Password must be 8 characters long",
+                noWhitespace: "Password cannot contain spaces"
             },
             confirmPassword: {
-                required: "Please enter password ",
-                minlength: "Password must be 8 char long",
-                equalTo: "Please enter same password as above"
+                required: "Please enter password",
+                minlength: "Password must be 8 characters long",
+                equalTo: "Please enter the same password as above",
+                noWhitespace: "Password cannot contain spaces"
             }
         },
         submitHandler: function () {
-            const fullname = $("#fullname").val();
-            const username = $("#username").val();
-            const email = $("#email").val();
-            const password = $("#password").val();
-
+            const fullname = $("#fullname").val().trim();
+            const username = $("#username").val().trim();
+            const email = $("#email").val().trim();
+            const password = $("#password").val().trim();
+    
             // Store user data in localStorage
             let users = JSON.parse(localStorage.getItem("users")) || [];
             if (users.some(user => user.username === username || user.email === email)) {
@@ -87,22 +103,30 @@ $(document).ready(function () {
 
     $("#loginForm").validate({
         rules: {
-            username: "required",
+            username: {
+                required: true,
+                noWhitespace: true
+            },
             password: {
                 required: true,
-                minlength: 8
+                minlength: 8,
+                noWhitespace: true 
             }
         },
         messages: {
-            username: "Please enter username",
+            username: {
+                required: "Please enter username",
+                noSpaces: "Username cannot contain spaces"
+            },
             password: {
                 required: "Please enter password",
-                minlength: "Password must be 8 char long"
+                minlength: "Password must be 8 characters long",
+                noSpaces: "Password cannot contain spaces"
             }
         },
         submitHandler: function () {
-            const username = $("#loginUsername").val();
-            const password = $("#loginPassword").val();
+            const username = $("#loginUsername").val().trim(); // Trim username
+            const password = $("#loginPassword").val().trim(); // Trim password
 
             // Retrieve user data from localStorage
             const users = JSON.parse(localStorage.getItem("users")) || [];
@@ -142,5 +166,16 @@ $(document).ready(function () {
             }
         },
     });
+
+    // to handle only white spaces in input
+    // custom validation rule noWhitespace
+    $.validator.addMethod("noWhitespace", function(value) {
+        return !/\s/.test(value); // Ensures there are no spaces anywhere in the string
+    }, "Username cannot contain spaces.");
+
+    // Custom method to validate only alphabets and spaces
+    $.validator.addMethod("regex", function(value, element, param) {
+       return this.optional(element) || param.test(value);
+    }, "Please enter a valid input.");
 
 });
