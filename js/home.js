@@ -11,7 +11,7 @@ $(document).ready(function () {
         $("#authBtn").html('<a class="nav-link" href="login.html" id="loginBtn">Login</a>');
     }
 
-    // Logout functionality
+    // Logout functionality with Event Delegation
     $("#navbarNav").on("click", "#logoutBtn", function (e) {
         e.preventDefault();
         // Clear login state
@@ -91,6 +91,8 @@ $(document).ready(function () {
     });
 
     // https://api.itbook.store/1.0/new
+    // https://mocki.io/v1/6cac9289-8c20-4567-8107-ba66e2c81dcb (without dummy img)
+    // https://mocki.io/v1/513c1c7b-a224-4573-8e35-394205db7644 (with dummy img)
 
     promise
         .done(function (data) {
@@ -146,9 +148,12 @@ $(document).ready(function () {
         // Get the book ID from the parent book card
         const bookId = $(this).data("id");
 
+        // https://api.itbook.store/1.0/books/${bookId}
+        // https://mocki.io/v1/513c1c7b-a224-4573-8e35-394205db7644 (with dummy img)
+        
         // Fetch book details
         $.ajax({
-            url: `https://api.itbook.store/1.0/books/${bookId}`,
+            url: `https://mocki.io/v1/513c1c7b-a224-4573-8e35-394205db7644`,
             method: "GET",
             success: function (data) {
                 const book = new Details(data.isbn13, data.title, data.image, parseFloat(data.price.slice(1)), data.authors, data.publisher, data.desc);
@@ -263,7 +268,7 @@ $(document).ready(function () {
                 `);
         });
 
-        cartTotalContainer.text(`Total: $${total}`);
+        cartTotalContainer.text(`Total: $${total.toFixed(2)}`);
     }
 
     // Checkout button functionality
